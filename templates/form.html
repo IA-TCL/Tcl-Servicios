@@ -200,6 +200,41 @@
             box-shadow: 0 0 0 3px rgba(42,64,56,.1);
         }
 
+        /* Fecha — badge día seleccionado */
+        .date-badge {
+            display: none; align-items: center; gap: 6px;
+            margin-top: 7px; padding: 5px 12px;
+            background: #f0fdf4; border: 1px solid #bbf7d0;
+            border-radius: 20px; font-size: 11.5px; font-weight: 600;
+            color: #166534; width: fit-content;
+        }
+        .date-badge.visible { display: flex; }
+        .date-badge svg { stroke: #16a34a; }
+        .date-error {
+            display: none; margin-top: 6px; font-size: 11.5px;
+            color: #dc2626; font-weight: 500;
+        }
+        .date-error.visible { display: block; }
+
+        /* Hora — pills grid */
+        .hora-grid {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+        }
+        .hora-pill {
+            padding: 8px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 50px;
+            font-size: 13px; font-weight: 500;
+            color: #374151; background: #f9fafb;
+            cursor: pointer; transition: all .18s;
+            font-family: inherit;
+        }
+        .hora-pill:hover { border-color: #2A4038; background: #fff; color: #2A4038; }
+        .hora-pill.active {
+            border-color: #2A4038; background: #2A4038;
+            color: #fff; box-shadow: 0 2px 8px rgba(42,64,56,.25);
+        }
+
         .checkboxes-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
 
         .checkbox-pill {
@@ -347,7 +382,7 @@
                 </div>
 
                 <!-- Teléfono -->
-                <div class="field col-2">
+                <div class="field col-3">
                     <label for="telefono">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         Número de contacto
@@ -360,42 +395,44 @@
                 </div>
 
                 <!-- Fecha preferida -->
-                <div class="field col-2">
+                <div class="field col-3">
                     <label for="fecha">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                         Fecha preferida
                     </label>
-                    <p class="hint">Día para la reunión.</p>
+                    <p class="hint">Solo días hábiles — lunes a viernes.</p>
                     <div class="input-wrap">
                         <input id="fecha" name="fecha" type="date" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
                     </div>
+                    <div class="date-badge" id="date-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span id="date-badge-text"></span>
+                    </div>
+                    <div class="date-error" id="date-error">&#9888; Solo se permiten días hábiles (lun–vie).</div>
                 </div>
 
                 <!-- Horario preferido -->
-                <div class="field col-2">
-                    <label for="hora">
+                <div class="field col-6">
+                    <label>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         Horario preferido
                     </label>
-                    <p class="hint">Seleccione la hora.</p>
-                    <div class="input-wrap">
-                        <select id="hora" name="hora" required>
-                            <option value="" disabled selected>-- Seleccione --</option>
-                            <option value="7:00 AM">7:00 AM</option>
-                            <option value="8:00 AM">8:00 AM</option>
-                            <option value="9:00 AM">9:00 AM</option>
-                            <option value="10:00 AM">10:00 AM</option>
-                            <option value="11:00 AM">11:00 AM</option>
-                            <option value="12:00 PM">12:00 PM</option>
-                            <option value="1:00 PM">1:00 PM</option>
-                            <option value="2:00 PM">2:00 PM</option>
-                            <option value="3:00 PM">3:00 PM</option>
-                            <option value="4:00 PM">4:00 PM</option>
-                            <option value="5:00 PM">5:00 PM</option>
-                        </select>
-                        <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                    <p class="hint">Seleccione la hora de la reunión.</p>
+                    <div class="hora-grid" id="hora-grid">
+                        <button type="button" class="hora-pill" data-value="7:00 AM">7:00 AM</button>
+                        <button type="button" class="hora-pill" data-value="8:00 AM">8:00 AM</button>
+                        <button type="button" class="hora-pill" data-value="9:00 AM">9:00 AM</button>
+                        <button type="button" class="hora-pill" data-value="10:00 AM">10:00 AM</button>
+                        <button type="button" class="hora-pill" data-value="11:00 AM">11:00 AM</button>
+                        <button type="button" class="hora-pill" data-value="12:00 PM">12:00 PM</button>
+                        <button type="button" class="hora-pill" data-value="1:00 PM">1:00 PM</button>
+                        <button type="button" class="hora-pill" data-value="2:00 PM">2:00 PM</button>
+                        <button type="button" class="hora-pill" data-value="3:00 PM">3:00 PM</button>
+                        <button type="button" class="hora-pill" data-value="4:00 PM">4:00 PM</button>
+                        <button type="button" class="hora-pill" data-value="5:00 PM">5:00 PM</button>
                     </div>
+                    <input type="hidden" name="hora" id="hora-hidden">
                 </div>
 
                 <!-- Servicio(s) de interés -->
@@ -437,19 +474,66 @@
     </div>
 
     <script>
+        // Checkboxes servicios
         document.querySelectorAll('.checkbox-pill input[type="checkbox"]').forEach(function(cb) {
             cb.addEventListener('change', function() {
                 this.closest('.checkbox-pill').classList.toggle('checked', this.checked);
             });
         });
 
-        document.getElementById('btn-clear').addEventListener('click', function() {
-            document.getElementById('main-form').reset();
-            document.querySelectorAll('.checkbox-pill').forEach(function(pill) {
-                pill.classList.remove('checked');
+        // Fecha — solo lunes a viernes
+        var DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+        var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+        var fechaInput = document.getElementById('fecha');
+        var badge = document.getElementById('date-badge');
+        var badgeText = document.getElementById('date-badge-text');
+        var dateError = document.getElementById('date-error');
+
+        // Mínimo: hoy
+        var hoy = new Date();
+        var yyyy = hoy.getFullYear();
+        var mm = String(hoy.getMonth()+1).padStart(2,'0');
+        var dd = String(hoy.getDate()).padStart(2,'0');
+        fechaInput.min = yyyy+'-'+mm+'-'+dd;
+
+        fechaInput.addEventListener('change', function() {
+            badge.classList.remove('visible');
+            dateError.classList.remove('visible');
+            if (!this.value) return;
+            // Parsear sin timezone offset
+            var parts = this.value.split('-');
+            var d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+            var dow = d.getDay(); // 0=dom, 6=sab
+            if (dow === 0 || dow === 6) {
+                this.value = '';
+                dateError.classList.add('visible');
+            } else {
+                badgeText.textContent = DIAS[dow] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()];
+                badge.classList.add('visible');
+            }
+        });
+
+        // Hora — pills
+        var horaHidden = document.getElementById('hora-hidden');
+        document.querySelectorAll('.hora-pill').forEach(function(pill) {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.hora-pill').forEach(function(p) { p.classList.remove('active'); });
+                this.classList.add('active');
+                horaHidden.value = this.dataset.value;
             });
         });
 
+        // Limpiar formulario
+        document.getElementById('btn-clear').addEventListener('click', function() {
+            document.getElementById('main-form').reset();
+            document.querySelectorAll('.checkbox-pill').forEach(function(p) { p.classList.remove('checked'); });
+            document.querySelectorAll('.hora-pill').forEach(function(p) { p.classList.remove('active'); });
+            horaHidden.value = '';
+            badge.classList.remove('visible');
+            dateError.classList.remove('visible');
+        });
+
+        // Validar al enviar
         document.getElementById('main-form').addEventListener('submit', function(e) {
             var checked = document.querySelectorAll('input[name="servicios"]:checked');
             if (checked.length === 0) {
@@ -457,11 +541,17 @@
                 alert('Por favor seleccione al menos un servicio de interés.');
                 return;
             }
+            if (!horaHidden.value) {
+                e.preventDefault();
+                alert('Por favor seleccione un horario preferido.');
+                return;
+            }
             var btn = document.getElementById('btn-submit');
             btn.disabled = true;
             btn.textContent = 'Enviando…';
         });
 
+        // Solo letras en campos de texto
         document.querySelectorAll('input[type="text"]').forEach(function(input) {
             input.addEventListener('input', function() {
                 this.value = this.value.replace(/[0-9]/g, '');
