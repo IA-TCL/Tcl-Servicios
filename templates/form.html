@@ -216,27 +216,23 @@
         }
         .date-error.visible { display: block; }
 
-        /* Select lista (hora) */
-        .field select[size] {
+        /* Select desplegable (hora) */
+        .field select {
             width: 100%;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: inherit;
-            color: #111827;
-            background: #f9fafb;
-            padding: 4px 0;
-            transition: border-color .2s, box-shadow .2s;
-            cursor: pointer;
-            outline: none;
+            padding: 10px 12px 10px 38px;
+            font-size: 14px; font-family: inherit;
+            border: 1.5px solid #e5e7eb; border-radius: 10px;
+            color: #111827; background: #f9fafb;
+            appearance: none; -webkit-appearance: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            cursor: pointer; outline: none;
         }
-        .field select[size]:focus {
-            border-color: #2A4038;
-            background: #fff;
+        .field select:hover { border-color: #c8ced8; background: #fff; }
+        .field select:focus {
+            border-color: #2A4038; background: #fff;
             box-shadow: 0 0 0 3px rgba(42,64,56,.1);
         }
-        .field select[size] option { padding: 8px 14px; cursor: pointer; }
-        .field select[size] option:checked { background: #2A4038; color: #fff; }
+        .field select option { color: #111827; }
 
         /* Multi-select desplegable (servicios) */
         .multi-select { position: relative; }
@@ -515,19 +511,23 @@
                         Horario preferido
                     </label>
                     <p class="hint">Seleccione la hora de la reunión.</p>
-                    <select id="hora" name="hora" size="6" required>
-                        <option value="7:00 AM">7:00 AM</option>
-                        <option value="8:00 AM">8:00 AM</option>
-                        <option value="9:00 AM">9:00 AM</option>
-                        <option value="10:00 AM">10:00 AM</option>
-                        <option value="11:00 AM">11:00 AM</option>
-                        <option value="12:00 PM">12:00 PM</option>
-                        <option value="1:00 PM">1:00 PM</option>
-                        <option value="2:00 PM">2:00 PM</option>
-                        <option value="3:00 PM">3:00 PM</option>
-                        <option value="4:00 PM">4:00 PM</option>
-                        <option value="5:00 PM">5:00 PM</option>
-                    </select>
+                    <div class="input-wrap">
+                        <select id="hora" name="hora" required>
+                            <option value="" disabled selected>-- Seleccione --</option>
+                            <option value="7:00 AM">7:00 AM</option>
+                            <option value="8:00 AM">8:00 AM</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+                        <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                    </div>
                 </div>
 
                 <!-- Cuéntanos -->
