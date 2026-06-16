@@ -120,7 +120,7 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .field label {
+        .field > label {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -131,7 +131,7 @@
             letter-spacing: .1px;
         }
 
-        .field label svg { color: #2A4038; flex-shrink: 0; }
+        .field > label svg { color: #2A4038; flex-shrink: 0; }
 
         .field .hint { font-size: 11.5px; color: #9ca3af; line-height: 1.5; margin-bottom: 8px; font-style: italic; }
 
@@ -148,7 +148,7 @@
 
         .input-wrap:focus-within .icon { color: #2A4038; }
 
-        .field input,
+        .field input:not([type="checkbox"]),
         .field select {
             width: 100%;
             padding: 10px 12px 10px 38px;
@@ -162,12 +162,12 @@
             cursor: pointer;
         }
 
-        .field input::placeholder { color: #c4c9d4; font-style: italic; }
+        .field input:not([type="checkbox"])::placeholder { color: #c4c9d4; font-style: italic; }
 
-        .field input:hover,
+        .field input:not([type="checkbox"]):hover,
         .field select:hover { border-color: #c8ced8; background: #fff; }
 
-        .field input:focus,
+        .field input:not([type="checkbox"]):focus,
         .field select:focus {
             outline: none;
             border-color: #2A4038;
@@ -273,16 +273,16 @@
         .multi-select.open { position: relative; z-index: 1000; }
 
         .multi-option {
-            display: flex; align-items: center; gap: 10px;
+            display: flex !important; align-items: center; gap: 10px;
             padding: 11px 14px;
-            font-size: 14px; color: #374151;
-            cursor: pointer;
-            transition: background .15s;
-            user-select: none;
+            font-size: 14px !important; font-weight: 400 !important;
+            color: #374151 !important; margin-bottom: 0 !important;
+            cursor: pointer; transition: background .15s;
+            user-select: none; letter-spacing: normal !important;
         }
         .multi-option:not(:last-child) { border-bottom: 1px solid #f3f4f6; }
         .multi-option:hover { background: #f8faf9; }
-        .multi-option input[type="checkbox"] { display: none; }
+        .multi-option input[type="checkbox"] { display: none !important; width: auto; padding: 0; border: none; background: none; }
         .multi-checkbox {
             width: 17px; height: 17px; flex-shrink: 0;
             border: 1.5px solid #d1d5db; border-radius: 5px;
