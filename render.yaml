@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: j5d4
+    name: servicios
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
