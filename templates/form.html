@@ -46,7 +46,7 @@
         .bg-ring-2       { width: 580px; height: 580px; bottom: -200px; right: -200px; border: 1px solid rgba(255,255,255,0.04); }
         .bg-ring-2-inner { width: 380px; height: 380px; bottom: -100px; right: -100px; border: 1px solid rgba(255,255,255,0.025); }
 
-.bg-brand {
+        .bg-brand {
             position: fixed;
             top: 26px; left: 50%;
             transform: translateX(-50%);
@@ -150,10 +150,47 @@
 
         .input-wrap:focus-within .icon { color: #2A4038; }
 
+        /* ── Check icon (visible when filled) ── */
+        .check-icon {
+            position: absolute;
+            right: 11px; top: 50%;
+            transform: translateY(-50%);
+            color: #16a34a;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .18s;
+            display: flex; align-items: center;
+        }
+        .check-icon-top {
+            position: absolute;
+            right: 11px; top: 12px;
+            color: #16a34a;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .18s;
+            display: flex; align-items: center;
+        }
+        .input-wrap.filled .check-icon,
+        .input-wrap.filled .check-icon-top { opacity: 1; }
+        .input-wrap.filled .icon { color: #16a34a; }
+
+        /* ── Filled state — green border ── */
+        .input-wrap.filled input:not([type="checkbox"]):not(:focus),
+        .input-wrap.filled select:not(:focus) {
+            border-color: #16a34a;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(22,163,74,.1);
+        }
+        .input-wrap.filled textarea:not(:focus) {
+            border-color: #16a34a;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(22,163,74,.1);
+        }
+
         .field input:not([type="checkbox"]),
         .field select {
             width: 100%;
-            padding: 10px 12px 10px 38px;
+            padding: 10px 36px 10px 38px;
             font-size: 14px;
             font-family: inherit;
             border: 1.5px solid #e5e7eb;
@@ -179,7 +216,7 @@
 
         .field textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px 36px 10px 12px;
             font-size: 14px;
             font-family: inherit;
             border: 1.5px solid #e5e7eb;
@@ -221,7 +258,7 @@
         /* Select desplegable (hora) */
         .field select {
             width: 100%;
-            padding: 10px 12px 10px 38px;
+            padding: 10px 36px 10px 38px;
             font-size: 14px; font-family: inherit;
             border: 1.5px solid #e5e7eb; border-radius: 10px;
             color: #111827; background: #f9fafb;
@@ -236,11 +273,8 @@
         }
         .field select option { color: #111827; }
 
-
         .checkbox-pill:hover { border-color: #2A4038; background: #fff; }
-
         .checkbox-pill input[type="checkbox"] { display: none; }
-
         .checkbox-pill.checked { border-color: #2A4038; background: #2A4038; color: #fff; }
 
         .footer {
@@ -323,6 +357,7 @@
                     <div class="input-wrap">
                         <input id="nombre" name="nombre" type="text" placeholder="Ej. María Fernanda" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -336,6 +371,7 @@
                     <div class="input-wrap">
                         <input id="apellidos" name="apellidos" type="text" placeholder="Ej. González Torres" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -349,6 +385,7 @@
                     <div class="input-wrap">
                         <input id="empresa" name="empresa" type="text" placeholder="Ej. Grupo XYZ S.A.S" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M8 10h.01M16 10h.01M12 14h.01M8 14h.01M16 14h.01"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -362,6 +399,7 @@
                     <div class="input-wrap">
                         <input id="ciudad" name="ciudad" type="text" placeholder="Ej. Bogotá" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -375,6 +413,7 @@
                     <div class="input-wrap">
                         <input id="telefono" name="telefono" type="tel" placeholder="Ej. 300 123 4567" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -393,6 +432,7 @@
                             <option value="Contabilidad, Revisoría fiscal">Contabilidad, Revisoría fiscal</option>
                         </select>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -406,6 +446,7 @@
                     <div class="input-wrap">
                         <input id="fecha" name="fecha" type="date" required>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                     <div class="date-badge" id="date-badge">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -437,6 +478,7 @@
                             <option value="5:00 PM">5:00 PM</option>
                         </select>
                         <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                        <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                     </div>
                 </div>
 
@@ -447,7 +489,10 @@
                         Cuéntanos
                     </label>
                     <p class="hint">Descríbanos brevemente su necesidad o consulta.</p>
-                    <textarea id="cuentanos" name="cuentanos" placeholder="Escriba aquí su consulta o necesidad..." required></textarea>
+                    <div class="input-wrap">
+                        <textarea id="cuentanos" name="cuentanos" placeholder="Escriba aquí su consulta o necesidad..." required></textarea>
+                        <span class="check-icon-top"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                    </div>
                 </div>
 
             </div>
@@ -477,12 +522,14 @@
         fechaInput.addEventListener('change', function() {
             badge.classList.remove('visible');
             dateError.classList.remove('visible');
+            updateFilled(this);
             if (!this.value) return;
             var parts = this.value.split('-');
             var d = new Date(+parts[0], +parts[1]-1, +parts[2]);
             var dow = d.getDay();
             if (dow === 0 || dow === 6) {
                 this.value = '';
+                updateFilled(this);
                 dateError.classList.add('visible');
             } else {
                 badgeText.textContent = DIAS[dow] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()];
@@ -490,11 +537,25 @@
             }
         });
 
+        // Filled state — borde verde + checkmark al completar
+        function updateFilled(el) {
+            var wrap = el.closest('.input-wrap');
+            if (!wrap) return;
+            var hasValue = el.tagName === 'SELECT' ? el.value !== '' : el.value.trim() !== '';
+            wrap.classList.toggle('filled', hasValue);
+        }
+
+        document.querySelectorAll('.input-wrap input, .input-wrap select, .input-wrap textarea').forEach(function(el) {
+            el.addEventListener('input', function() { updateFilled(this); });
+            el.addEventListener('change', function() { updateFilled(this); });
+        });
+
         // Limpiar formulario
         document.getElementById('btn-clear').addEventListener('click', function() {
             document.getElementById('main-form').reset();
             badge.classList.remove('visible');
             dateError.classList.remove('visible');
+            document.querySelectorAll('.input-wrap.filled').forEach(function(w) { w.classList.remove('filled'); });
         });
 
         // Validar al enviar
