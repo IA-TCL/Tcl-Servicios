@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from typing import List
 from urllib.parse import quote
 
 import requests
@@ -40,7 +39,7 @@ async def submit(
     cuentanos: str = Form(...),
     fecha: str = Form(...),
     hora: str = Form(...),
-    servicios: List[str] = Form(default=[]),
+    servicios: str = Form(...),
 ):
     dia_horario = f"{fecha} a las {hora}"
 
