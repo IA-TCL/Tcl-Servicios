@@ -44,19 +44,7 @@
         .bg-ring-2       { width: 580px; height: 580px; bottom: -200px; right: -200px; border: 1px solid rgba(255,255,255,0.04); }
         .bg-ring-2-inner { width: 380px; height: 380px; bottom: -100px; right: -100px; border: 1px solid rgba(255,255,255,0.025); }
 
-        .bg-watermark {
-            position: fixed;
-            font-family: 'Roboto Slab', serif;
-            font-size: clamp(130px, 22vw, 240px);
-            font-weight: 700;
-            color: rgba(255,255,255,0.018);
-            letter-spacing: -6px;
-            bottom: -30px; left: 50%;
-            transform: translateX(-50%);
-            user-select: none; pointer-events: none; z-index: 0; white-space: nowrap;
-        }
-
-        .bg-brand {
+.bg-brand {
             position: fixed;
             top: 26px; left: 50%;
             transform: translateX(-50%);
@@ -162,7 +150,6 @@
     <div class="bg-ring bg-ring-1-inner"></div>
     <div class="bg-ring bg-ring-2"></div>
     <div class="bg-ring bg-ring-2-inner"></div>
-    <div class="bg-watermark">TCL</div>
     <div class="bg-brand">TCL Asesores &mdash; Servicios</div>
     <div class="card">
         <img src="/static/logo.png" alt="TCL" class="logo-img">
