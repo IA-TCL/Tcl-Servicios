@@ -216,8 +216,7 @@
         }
         .date-error.visible { display: block; }
 
-        /* Select en modo lista (servicios y hora) */
-        .field select[multiple],
+        /* Select lista (hora) */
         .field select[size] {
             width: 100%;
             border: 1.5px solid #e5e7eb;
@@ -231,25 +230,77 @@
             cursor: pointer;
             outline: none;
         }
-        .field select[multiple]:focus,
         .field select[size]:focus {
             border-color: #2A4038;
             background: #fff;
             box-shadow: 0 0 0 3px rgba(42,64,56,.1);
         }
-        .field select[multiple] option,
-        .field select[size] option {
-            padding: 8px 14px;
+        .field select[size] option { padding: 8px 14px; cursor: pointer; }
+        .field select[size] option:checked { background: #2A4038; color: #fff; }
+
+        /* Multi-select desplegable (servicios) */
+        .multi-select { position: relative; }
+
+        .multi-trigger {
+            width: 100%;
+            padding: 10px 38px 10px 12px;
+            font-size: 14px; font-family: inherit;
+            border: 1.5px solid #e5e7eb; border-radius: 10px;
+            color: #111827; background: #f9fafb;
+            text-align: left; cursor: pointer;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px;
+        }
+        .multi-trigger:hover { border-color: #c8ced8; background: #fff; }
+        .multi-trigger.open {
+            border-color: #2A4038; background: #fff;
+            box-shadow: 0 0 0 3px rgba(42,64,56,.1);
+        }
+        .multi-trigger-label { flex: 1; font-size: 14px; color: #111827; }
+        .multi-trigger-label.placeholder { color: #c4c9d4; font-style: italic; }
+        .multi-trigger-chevron {
+            flex-shrink: 0; color: #9ca3af;
+            transition: transform .2s;
+        }
+        .multi-trigger.open .multi-trigger-chevron { transform: rotate(180deg); }
+
+        .multi-dropdown {
+            display: none;
+            position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+            background: #fff;
+            border: 1.5px solid #e5e7eb; border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.12);
+            z-index: 10; overflow: hidden;
+        }
+        .multi-dropdown.open { display: block; }
+
+        .multi-option {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 14px;
+            font-size: 14px; color: #374151;
             cursor: pointer;
+            transition: background .15s;
+            user-select: none;
         }
-        .field select[multiple] option:checked,
-        .field select[size] option:checked {
-            background: #2A4038;
-            color: #fff;
+        .multi-option:not(:last-child) { border-bottom: 1px solid #f3f4f6; }
+        .multi-option:hover { background: #f8faf9; }
+        .multi-option input[type="checkbox"] { display: none; }
+        .multi-checkbox {
+            width: 17px; height: 17px; flex-shrink: 0;
+            border: 1.5px solid #d1d5db; border-radius: 5px;
+            background: #fff; display: flex; align-items: center; justify-content: center;
+            transition: all .15s;
         }
-        .field select[multiple] option:hover,
-        .field select[size] option:hover {
-            background: #f0fdf4;
+        .multi-option.checked .multi-checkbox {
+            background: #2A4038; border-color: #2A4038;
+        }
+        .multi-option.checked .multi-checkbox::after {
+            content: '';
+            width: 9px; height: 5px;
+            border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+            transform: rotate(-45deg) translateY(-1px);
+            display: block;
         }
 
         .checkboxes-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
@@ -413,15 +464,29 @@
 
                 <!-- Servicio(s) de interés -->
                 <div class="field col-3">
-                    <label for="servicios">
+                    <label>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                         Servicio(s) de interés
                     </label>
                     <p class="hint">Puede seleccionar más de uno.</p>
-                    <select id="servicios" name="servicios" multiple size="2" required>
-                        <option value="Contabilidad">Contabilidad</option>
-                        <option value="Revisoría fiscal">Revisoría fiscal</option>
-                    </select>
+                    <div class="multi-select" id="servicios-wrap">
+                        <button type="button" class="multi-trigger" id="servicios-trigger">
+                            <span class="multi-trigger-label placeholder" id="servicios-label">Seleccione servicio(s)...</span>
+                            <svg class="multi-trigger-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="multi-dropdown" id="servicios-dropdown">
+                            <label class="multi-option" data-value="Contabilidad">
+                                <input type="checkbox" value="Contabilidad">
+                                <span class="multi-checkbox"></span>
+                                Contabilidad
+                            </label>
+                            <label class="multi-option" data-value="Revisoría fiscal">
+                                <input type="checkbox" value="Revisoría fiscal">
+                                <span class="multi-checkbox"></span>
+                                Revisoría fiscal
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Fecha preferida -->
@@ -514,18 +579,59 @@
             }
         });
 
+        // Multi-select desplegable (servicios)
+        var trigger = document.getElementById('servicios-trigger');
+        var dropdown = document.getElementById('servicios-dropdown');
+        var labelEl = document.getElementById('servicios-label');
+
+        function updateServiciosLabel() {
+            var checked = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            if (checked.length === 0) {
+                labelEl.textContent = 'Seleccione servicio(s)...';
+                labelEl.classList.add('placeholder');
+            } else {
+                labelEl.textContent = Array.from(checked).map(function(c) { return c.value; }).join(', ');
+                labelEl.classList.remove('placeholder');
+            }
+        }
+
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = dropdown.classList.toggle('open');
+            trigger.classList.toggle('open', isOpen);
+        });
+
+        dropdown.querySelectorAll('.multi-option').forEach(function(opt) {
+            opt.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var cb = this.querySelector('input[type="checkbox"]');
+                cb.checked = !cb.checked;
+                this.classList.toggle('checked', cb.checked);
+                updateServiciosLabel();
+            });
+        });
+
+        document.addEventListener('click', function() {
+            dropdown.classList.remove('open');
+            trigger.classList.remove('open');
+        });
+
         // Limpiar formulario
         document.getElementById('btn-clear').addEventListener('click', function() {
             document.getElementById('main-form').reset();
+            dropdown.querySelectorAll('.multi-option').forEach(function(o) {
+                o.classList.remove('checked');
+                o.querySelector('input').checked = false;
+            });
+            updateServiciosLabel();
             badge.classList.remove('visible');
             dateError.classList.remove('visible');
         });
 
         // Validar al enviar
         document.getElementById('main-form').addEventListener('submit', function(e) {
-            var serviciosEl = document.getElementById('servicios');
-            var seleccionados = Array.from(serviciosEl.selectedOptions);
-            if (seleccionados.length === 0) {
+            var checked = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            if (checked.length === 0) {
                 e.preventDefault();
                 alert('Por favor seleccione al menos un servicio de interés.');
                 return;
@@ -535,6 +641,14 @@
                 alert('Por favor seleccione un horario preferido.');
                 return;
             }
+            // Agregar inputs hidden para cada servicio seleccionado
+            var form = document.getElementById('main-form');
+            form.querySelectorAll('input[name="servicios"]').forEach(function(i) { i.remove(); });
+            checked.forEach(function(cb) {
+                var inp = document.createElement('input');
+                inp.type = 'hidden'; inp.name = 'servicios'; inp.value = cb.value;
+                form.appendChild(inp);
+            });
             var btn = document.getElementById('btn-submit');
             btn.disabled = true;
             btn.textContent = 'Enviando…';
