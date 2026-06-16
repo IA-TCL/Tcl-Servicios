@@ -271,9 +271,10 @@
             background: #fff;
             border: 1.5px solid #e5e7eb; border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0,0,0,.12);
-            z-index: 10; overflow: hidden;
+            z-index: 1000; overflow: hidden;
         }
         .multi-dropdown.open { display: block; }
+        .multi-select.open { position: relative; z-index: 1000; }
 
         .multi-option {
             display: flex; align-items: center; gap: 10px;
@@ -595,10 +596,12 @@
             }
         }
 
+        var multiWrap = document.getElementById('servicios-wrap');
         trigger.addEventListener('click', function(e) {
             e.stopPropagation();
             var isOpen = dropdown.classList.toggle('open');
             trigger.classList.toggle('open', isOpen);
+            multiWrap.classList.toggle('open', isOpen);
         });
 
         dropdown.querySelectorAll('.multi-option').forEach(function(opt) {
@@ -614,6 +617,7 @@
         document.addEventListener('click', function() {
             dropdown.classList.remove('open');
             trigger.classList.remove('open');
+            multiWrap.classList.remove('open');
         });
 
         // Limpiar formulario
