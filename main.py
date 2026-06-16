@@ -52,7 +52,7 @@ async def submit(
         "Numero de contacto": telefono,
         "Servicio(s) de interés": servicios,
         "Cuéntanos brevemente tu necesidad": cuentanos,
-        "Dia y horario...": dia_horario,
+        "Dia y horario preferido para ser contactado": dia_horario,
     }
     fields = {k: v for k, v in fields.items() if v}
 
