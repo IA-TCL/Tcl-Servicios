@@ -216,23 +216,40 @@
         }
         .date-error.visible { display: block; }
 
-        /* Hora — pills grid */
-        .hora-grid {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
-        }
-        .hora-pill {
-            padding: 8px 16px;
+        /* Select en modo lista (servicios y hora) */
+        .field select[multiple],
+        .field select[size] {
+            width: 100%;
             border: 1.5px solid #e5e7eb;
-            border-radius: 50px;
-            font-size: 13px; font-weight: 500;
-            color: #374151; background: #f9fafb;
-            cursor: pointer; transition: all .18s;
+            border-radius: 10px;
+            font-size: 14px;
             font-family: inherit;
+            color: #111827;
+            background: #f9fafb;
+            padding: 4px 0;
+            transition: border-color .2s, box-shadow .2s;
+            cursor: pointer;
+            outline: none;
         }
-        .hora-pill:hover { border-color: #2A4038; background: #fff; color: #2A4038; }
-        .hora-pill.active {
-            border-color: #2A4038; background: #2A4038;
-            color: #fff; box-shadow: 0 2px 8px rgba(42,64,56,.25);
+        .field select[multiple]:focus,
+        .field select[size]:focus {
+            border-color: #2A4038;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(42,64,56,.1);
+        }
+        .field select[multiple] option,
+        .field select[size] option {
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+        .field select[multiple] option:checked,
+        .field select[size] option:checked {
+            background: #2A4038;
+            color: #fff;
+        }
+        .field select[multiple] option:hover,
+        .field select[size] option:hover {
+            background: #f0fdf4;
         }
 
         .checkboxes-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
@@ -394,6 +411,19 @@
                     </div>
                 </div>
 
+                <!-- Servicio(s) de interés -->
+                <div class="field col-3">
+                    <label for="servicios">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        Servicio(s) de interés
+                    </label>
+                    <p class="hint">Puede seleccionar más de uno.</p>
+                    <select id="servicios" name="servicios" multiple size="2" required>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Revisoría fiscal">Revisoría fiscal</option>
+                    </select>
+                </div>
+
                 <!-- Fecha preferida -->
                 <div class="field col-3">
                     <label for="fecha">
@@ -413,45 +443,25 @@
                 </div>
 
                 <!-- Horario preferido -->
-                <div class="field col-6">
-                    <label>
+                <div class="field col-3">
+                    <label for="hora">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         Horario preferido
                     </label>
                     <p class="hint">Seleccione la hora de la reunión.</p>
-                    <div class="hora-grid" id="hora-grid">
-                        <button type="button" class="hora-pill" data-value="7:00 AM">7:00 AM</button>
-                        <button type="button" class="hora-pill" data-value="8:00 AM">8:00 AM</button>
-                        <button type="button" class="hora-pill" data-value="9:00 AM">9:00 AM</button>
-                        <button type="button" class="hora-pill" data-value="10:00 AM">10:00 AM</button>
-                        <button type="button" class="hora-pill" data-value="11:00 AM">11:00 AM</button>
-                        <button type="button" class="hora-pill" data-value="12:00 PM">12:00 PM</button>
-                        <button type="button" class="hora-pill" data-value="1:00 PM">1:00 PM</button>
-                        <button type="button" class="hora-pill" data-value="2:00 PM">2:00 PM</button>
-                        <button type="button" class="hora-pill" data-value="3:00 PM">3:00 PM</button>
-                        <button type="button" class="hora-pill" data-value="4:00 PM">4:00 PM</button>
-                        <button type="button" class="hora-pill" data-value="5:00 PM">5:00 PM</button>
-                    </div>
-                    <input type="hidden" name="hora" id="hora-hidden">
-                </div>
-
-                <!-- Servicio(s) de interés -->
-                <div class="field col-6">
-                    <label>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                        Servicio(s) de interés
-                    </label>
-                    <p class="hint">Seleccione uno o más servicios.</p>
-                    <div class="checkboxes-wrap">
-                        <label class="checkbox-pill">
-                            <input type="checkbox" name="servicios" value="Contabilidad">
-                            Contabilidad
-                        </label>
-                        <label class="checkbox-pill">
-                            <input type="checkbox" name="servicios" value="Revisoría fiscal">
-                            Revisoría fiscal
-                        </label>
-                    </div>
+                    <select id="hora" name="hora" size="6" required>
+                        <option value="7:00 AM">7:00 AM</option>
+                        <option value="8:00 AM">8:00 AM</option>
+                        <option value="9:00 AM">9:00 AM</option>
+                        <option value="10:00 AM">10:00 AM</option>
+                        <option value="11:00 AM">11:00 AM</option>
+                        <option value="12:00 PM">12:00 PM</option>
+                        <option value="1:00 PM">1:00 PM</option>
+                        <option value="2:00 PM">2:00 PM</option>
+                        <option value="3:00 PM">3:00 PM</option>
+                        <option value="4:00 PM">4:00 PM</option>
+                        <option value="5:00 PM">5:00 PM</option>
+                    </select>
                 </div>
 
                 <!-- Cuéntanos -->
@@ -474,13 +484,6 @@
     </div>
 
     <script>
-        // Checkboxes servicios
-        document.querySelectorAll('.checkbox-pill input[type="checkbox"]').forEach(function(cb) {
-            cb.addEventListener('change', function() {
-                this.closest('.checkbox-pill').classList.toggle('checked', this.checked);
-            });
-        });
-
         // Fecha — solo lunes a viernes
         var DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
         var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -489,7 +492,6 @@
         var badgeText = document.getElementById('date-badge-text');
         var dateError = document.getElementById('date-error');
 
-        // Mínimo: hoy
         var hoy = new Date();
         var yyyy = hoy.getFullYear();
         var mm = String(hoy.getMonth()+1).padStart(2,'0');
@@ -500,10 +502,9 @@
             badge.classList.remove('visible');
             dateError.classList.remove('visible');
             if (!this.value) return;
-            // Parsear sin timezone offset
             var parts = this.value.split('-');
             var d = new Date(+parts[0], +parts[1]-1, +parts[2]);
-            var dow = d.getDay(); // 0=dom, 6=sab
+            var dow = d.getDay();
             if (dow === 0 || dow === 6) {
                 this.value = '';
                 dateError.classList.add('visible');
@@ -513,35 +514,23 @@
             }
         });
 
-        // Hora — pills
-        var horaHidden = document.getElementById('hora-hidden');
-        document.querySelectorAll('.hora-pill').forEach(function(pill) {
-            pill.addEventListener('click', function() {
-                document.querySelectorAll('.hora-pill').forEach(function(p) { p.classList.remove('active'); });
-                this.classList.add('active');
-                horaHidden.value = this.dataset.value;
-            });
-        });
-
         // Limpiar formulario
         document.getElementById('btn-clear').addEventListener('click', function() {
             document.getElementById('main-form').reset();
-            document.querySelectorAll('.checkbox-pill').forEach(function(p) { p.classList.remove('checked'); });
-            document.querySelectorAll('.hora-pill').forEach(function(p) { p.classList.remove('active'); });
-            horaHidden.value = '';
             badge.classList.remove('visible');
             dateError.classList.remove('visible');
         });
 
         // Validar al enviar
         document.getElementById('main-form').addEventListener('submit', function(e) {
-            var checked = document.querySelectorAll('input[name="servicios"]:checked');
-            if (checked.length === 0) {
+            var serviciosEl = document.getElementById('servicios');
+            var seleccionados = Array.from(serviciosEl.selectedOptions);
+            if (seleccionados.length === 0) {
                 e.preventDefault();
                 alert('Por favor seleccione al menos un servicio de interés.');
                 return;
             }
-            if (!horaHidden.value) {
+            if (!document.getElementById('hora').value) {
                 e.preventDefault();
                 alert('Por favor seleccione un horario preferido.');
                 return;
