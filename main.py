@@ -51,7 +51,7 @@ async def submit(
         "Cuidad": ciudad,
         "Numero de contacto": telefono,
         "Servicio(s) de interés": servicios,
-        "Cuéntanos...": cuentanos,
+        "Cuéntanos brevemente tu necesidad": cuentanos,
         "Dia y horario...": dia_horario,
     }
     fields = {k: v for k, v in fields.items() if v}
